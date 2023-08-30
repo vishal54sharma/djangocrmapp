@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        
+        {% if customer_record %} 
+        <div class="col-md-6 offset-md-3">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Details</th>
+            
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <tr>
+                            <th>Name</th>
+                            <td>{{customer_record.first_name}} {{customer_record.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{customer_record.email}}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{{customer_record.phone}}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{customer_record.address}}</td>
+                        </tr>
+                        <tr>
+                            <th>City</th>
+                            <td>{{customer_record.city}}</td>
+                        </tr>
+                        <tr>
+                            <th>State</th>
+                            <td>{{customer_record.state}}</td>
+                        </tr>
+                        <tr>
+                            <th>Zip Code</th>
+                            <td>{{customer_record.zipcode}}</td>
+                        </tr>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{customer_record.id}}</td>
+                        </tr>
+                        <tr>
+                            <th>Created At</th>
+                            <td>{{customer_record.created_at|timesince}} ago</td>
+                        </tr>
+                            
+                        
+                        
+                    
+                </tbody>
+            </table>
+            <br>
+            <a class="btn btn-secondary" href="{{request.META.HTTP_REFERER}}"> Back </a>
+            <a class="btn btn-danger" href="{% url 'delete' customer_record.id %}"> Delete </a>
+            <a class="btn btn-primary" href="{% url 'updaterecord' customer_record.id %}"> Update </a>
+        </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

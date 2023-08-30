@@ -3,30 +3,68 @@
 
 {% block content %}
 
-    <div class="col-md-6 offset-md-3">
+    
         {% if user.is_authenticated %}
-        {% else %}
-        <h3>LOGIN</h3>
-        <br>
-        <form method="POST" action="{% url 'home' %}">
-            {% csrf_token %}
-            <form>
-                <div class="mb-3">
-                  
-                  <input type="text" class="form-control"  aria-describedby="emailHelp" name="username" placeholder="user name" required>
-                  
-                </div>
-                <div class="mb-3">
-                  
-                  <input type="password" class="form-control" name="password" placeholder="password" required>
-                </div>
-                <br>
-                <button type="submit" class="btn btn-secondary">LOGIN</button>
-              </form>
+        
+          {% if records %} 
+          <table class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">City</th>
+                <th scope="col">State</th>
+                <th scope="col">ZipCode</th>
+                <th scope="col">Created-At</th>
+                <th scope="col">Id</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for record in records %}
+              <tr>
+                
+                <td>{{record.first_name}} {{record.last_name}}</td>
+                <td>{{record.email}}</td>
+                <td>{{record.phone}}</td>
+                <td>{{record.address}}</td>
+                <td>{{record.city}}</td>
+                <td>{{record.state}}</td>
+                <td>{{record.zipcode}}</td>
+                <td>{{record.created_at|timesince}} ago</td>
+                <td><a href="{% url 'record' record.id %}">{{record.id}}</a></td>
+               
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+          {% endif %}
 
-        </form>
+        {% else %}
+          <div class="col-md-6 offset-md-3">
+            <h3>LOGIN</h3>
+            <br>
+            <form method="POST" action="{% url 'home' %}">
+                {% csrf_token %}
+                
+                    <div class="mb-3">
+                      
+                      <input type="text" class="form-control"  aria-describedby="emailHelp" name="username" placeholder="user name" required>
+                      
+                    </div>
+                    <div class="mb-3">
+                      
+                      <input type="password" class="form-control" name="password" placeholder="password" required>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-secondary">LOGIN</button>
+                  
+
+            </form>
+          </div>
         {% endif %}
 
-    </div>
+    
 
 {% endblock %}
